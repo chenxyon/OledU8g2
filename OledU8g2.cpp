@@ -288,8 +288,9 @@ esp_err_t OledU8g2::draw_icon(const oled_icon_t *icon, uint16_t x, uint16_t y)
     // 完全不可见 → 跳过
     if (x >= m_screen.width || y >= m_screen.height) return ESP_OK;
 
-    // drawBitmap 第3参数: 列数 (=w, 按 U8g2 文档)
-    m_u8g2->drawBitmap((int16_t)x, (int16_t)y, icon->w, icon->h, icon->data);
+    // cnt = 每行字节数, 必须是 ceil(w/8). 之前传 icon->w 会把 cnt 当列数, 导致越界读
+    uint8_t cnt = (icon->w + 7) / 8;
+    m_u8g2->drawBitmap((int16_t)x, (int16_t)y, cnt, icon->h, icon->data);
     return ESP_OK;
 }
 
