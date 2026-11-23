@@ -1,0 +1,4 @@
+﻿#ifndef OLED_U8G2_VERSION_H
+#define OLED_U8G2_VERSION_H
+#define OLED_U8G2_VERSION_STRING   "1.0.0"
+#endif /* OLED_U8G2_VERSION_H */
